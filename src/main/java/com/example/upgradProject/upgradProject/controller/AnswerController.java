@@ -33,7 +33,7 @@ public class AnswerController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/answer/{id}")
+    @DeleteMapping("/answer/delete/{id}")
     ResponseEntity<?> deleteAnswer(@PathVariable Long id){
         answerRepository.deleteById(id);
         return ResponseEntity.ok().build();
@@ -45,7 +45,7 @@ public class AnswerController {
         return ResponseEntity.created(new URI("/api/answer" + result.getUuid())).body(result);
     }
 
-    @PutMapping("/answer/{id}")
+    @PutMapping("/answer/edit/{id}")
     ResponseEntity<Answer> updateAnswer(@Valid @RequestBody Answer answer){
         Answer result= answerRepository.save(answer);
         return ResponseEntity.ok().body(result);

@@ -20,7 +20,7 @@ public class QuestionController {
     }
 
 
-    @GetMapping("/question")
+    @GetMapping("/question/all")
     Collection<Question> questions(){
         return questionRepository.findAll();
     }
@@ -32,19 +32,19 @@ public class QuestionController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/question/{id}")
+    @DeleteMapping("/question/delete/{id}")
     ResponseEntity<?> deleteQuestion(@PathVariable Long id){
         questionRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/question")
+    @PostMapping("/question/create")
     ResponseEntity<Question> createQuestion(@Valid @RequestBody Question question) throws URISyntaxException {
         Question result= questionRepository.save(question);
         return ResponseEntity.created(new URI("/api/question" + result.getUuid())).body(result);
     }
 
-    @PutMapping("/question/{id}")
+    @PutMapping("/question/edit/{id}")
     ResponseEntity<Question> updateQuestion(@Valid @RequestBody Question question){
         Question result= questionRepository.save(question);
         return ResponseEntity.ok().body(result);

@@ -23,24 +23,6 @@ public class UsersController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("/users")
-    Collection<Users> users(){
-        return usersRepository.findAll();
-    }
-
-    @GetMapping("/users/{id}")
-    ResponseEntity<?> getUsers(@PathVariable Long id){
-        Optional<Users> users = usersRepository.findById(id);
-        return users.map(response -> ResponseEntity.ok().body(response))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @DeleteMapping("/users/{id}")
-    ResponseEntity<?> deleteUsers(@PathVariable Long id){
-        usersRepository.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/users")
     ResponseEntity<Users> createusers(@Valid @RequestBody Users users) throws URISyntaxException {
         Users result= usersRepository.save(users);
