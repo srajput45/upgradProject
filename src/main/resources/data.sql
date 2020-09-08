@@ -1,6 +1,4 @@
---These records are stored in the database to test the Quora Application
 
---Insert values in USERS table
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt, country, aboutme, dob, role, contactnumber)
     	VALUES (1025,'database_uuid','database_firstname','database_lastname','database_username','database_email','database_password','database_salt', 'database_country' ,'database_aboutme' ,'database_dob' , 'admin' , 'database_contactnumber' );
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt, country, aboutme, dob, role, contactnumber)
