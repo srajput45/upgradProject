@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -28,26 +29,28 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    ResponseEntity<?> getCategory(@PathVariable Long id){
-        Optional<Users> category = usersRepository.findById(id);
-        return category.map(response -> ResponseEntity.ok().body(response))
+    ResponseEntity<?> getUsers(@PathVariable Long id){
+        Optional<Users> users = usersRepository.findById(id);
+        return users.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/users")
-    ResponseEntity<Users> createCategory(@Validated @RequestBody Users users) throws URISyntaxException {
-        Users result = usersRepository.save(users);
-        return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
-    }
-    @PutMapping("/users/{id}")
-    ResponseEntity<Users> updateCategory(@Validated @RequestBody Users users){
-        Users result = usersRepository.save(users);
-        return ResponseEntity.ok().body(result);
-    }
     @DeleteMapping("/users/{id}")
-    ResponseEntity<?> deleteCategory(@PathVariable Long id){
+    ResponseEntity<?> deleteUsers(@PathVariable Long id){
         usersRepository.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/users")
+    ResponseEntity<Users> createusers(@Valid @RequestBody Users users) throws URISyntaxException {
+        Users result= usersRepository.save(users);
+        return ResponseEntity.created(new URI("/api/users" + result.getUuid())).body(result);
+    }
+
+    @PutMapping("/users/{id}")
+    ResponseEntity<Users> updateusers(@Valid @RequestBody Users users){
+        Users result= usersRepository.save(users);
+        return ResponseEntity.ok().body(result);
     }
 
 }
